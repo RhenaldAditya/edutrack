@@ -1,0 +1,1 @@
+<a {{ $attributes }} class="{{ $active ? 'active' : ''}}">{{ $slot }}</a>

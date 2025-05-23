@@ -4,7 +4,7 @@
         <div class=" mx-auto">
             <div class="flex justify-between items-center py-4">
                 <div>
-                    <h2 class="text-2xl font-semibold text-gray-800">Welcome back, Alex!</h2>
+                    <h2 class="text-2xl font-semibold text-gray-800">Selamat Datang, Alex!</h2>
                     <p class="text-gray-600">Here's your academic progress so far for this semester.</p>
                 </div>
                 <div class="flex items-center space-x-3">

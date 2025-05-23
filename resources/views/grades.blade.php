@@ -5,6 +5,23 @@
             <p class="text-gray-600">Academic Year 2024/2025 - Spring Semester</p>
         </div>
 
+        <div>
+            @foreach ($Pelajaran as $pelajaran)
+             <li>
+                <strong>{{ $pelajaran['nama_mata_pelajaran'] }}</strong><br>
+                ID: {{ $pelajaran['id_mata_pelajaran'] }}<br>
+                Deskripsi: {{ $pelajaran['deskripsi_pelajaran'] }}
+            </li>
+            @endforeach
+
+             @foreach ($Nilai as $nilai)
+             <li>
+                <strong>{{ $nilai['nilai_tugas'] }}</strong><br>
+                <strong>{{ $nilai['nilai_ujian'] }}</strong><br>
+            </li>
+            @endforeach
+        </div>
+
         <!-- Grades Table -->
         <div class="bg-white rounded-lg shadow-sm p-4 mb-6 overflow-hidden">
             <table class="grades-table">

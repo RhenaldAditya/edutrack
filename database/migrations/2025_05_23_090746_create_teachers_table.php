@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id(); // primary key
             $table->integer('id_pengajar')->unique(); // opsional, hanya sebagai penomoran tambahan
             $table->string('nama_pengajar');
+            $table->string('username')->unique();
 
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');

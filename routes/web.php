@@ -1,8 +1,14 @@
 <?php
 
-use App\Models\NilaiSiswa;
-use App\Models\Subjects;
+use App\Models\Score;
+use App\Models\Student;
+use App\Models\Subject;
+
+use App\Models\AcademyReport;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\GradeController;
+use App\Http\Controllers\ScoreController;
 
 Route::get('/', function () {
     return view('dashboard', ['title' => 'EduTrack Dashboard | Academic Reporting System']);
@@ -16,9 +22,8 @@ Route::get('/performance', function () {
     return view('performance', ['title' => 'EduTrack Performance | Academic Reporting System']);
 });
 
-Route::get('/grades', function () {
-    return view('grades', ['title' => 'EduTrack My Grades | Academic Reporting System', 'Pelajaran' => Subjects::all(), 'Nilai' => NilaiSiswa::all()]);
-});
+
+Route::get('/grades', [GradeController::class, 'showGrades']);
 
 // Route::get('/grades', function () {
 //     return view('grades', [

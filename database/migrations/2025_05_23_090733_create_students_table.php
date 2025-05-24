@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id(); // id -> digunakan sebagai foreign key
             $table->string('nama_siswa');
+            $table->string('username')->unique();
             $table->string('alamat_siswa');
             $table->date('tanggal_lahir_siswa');
             $table->timestamps();

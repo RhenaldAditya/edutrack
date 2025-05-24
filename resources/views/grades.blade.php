@@ -1,178 +1,101 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot>
-        <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">My Grades</h2>
-            <p class="text-gray-600">Academic Year 2024/2025 - Spring Semester</p>
-        </div>
-
-        <div>
-            @foreach ($Pelajaran as $pelajaran)
-             <li>
-                <strong>{{ $pelajaran['nama_mata_pelajaran'] }}</strong><br>
-                ID: {{ $pelajaran['id_mata_pelajaran'] }}<br>
-                Deskripsi: {{ $pelajaran['deskripsi_pelajaran'] }}
-            </li>
-            @endforeach
-
-             @foreach ($Nilai as $nilai)
-             <li>
-                <strong>{{ $nilai['nilai_tugas'] }}</strong><br>
-                <strong>{{ $nilai['nilai_ujian'] }}</strong><br>
-            </li>
-            @endforeach
+        <div class="mx-auto">
+            <div class="flex justify-between items-center py-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">My Grades</h2>
+                    <p class="text-gray-600">Tahun Akademik 2024/2025 - Semester Genap</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-m text-gray-900">{{ $student_name->nama_siswa }}</span>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-sm text-gray-700">AJ</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Grades Table -->
         <div class="bg-white rounded-lg shadow-sm p-4 mb-6 overflow-hidden">
-            <table class="grades-table">
+            <table border="1" cellpadding="10" cellspacing="0">
                 <thead>
                     <tr>
-                        <th style="width: 25%">Subject</th>
-                        <th style="width: 30%">Assignment/Test</th>
-                        <th style="width: 15%" class="numeric">Score</th>
-                        <th style="width: 15%" class="numeric">Weight</th>
-                        <th style="width: 15%" class="numeric">Final Grade</th>
+                        <th style="width: 30%">Mata Pelajaran</th>
+                        <th>Jenis Nilai</th>
+                        <th>Nilai</th>
+                        <th>Nilai Total</th> {{-- Opsional: Tambahkan kolom keterangan --}}
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Mathematics -->
-                    <tr>
-                        <td rowspan="4">Mathematics</td>
-                        <td>Midterm Exam</td>
-                        <td class="numeric">88/100</td>
-                        <td class="numeric">30%</td>
-                        <td rowspan="4" class="numeric pass">A (92.4)</td>
-                    </tr>
-                    <tr>
-                        <td>Final Exam</td>
-                        <td class="numeric">94/100</td>
-                        <td class="numeric">40%</td>
-                    </tr>
-                    <tr>
-                        <td>Homework Assignments</td>
-                        <td class="numeric">96/100</td>
-                        <td class="numeric">20%</td>
-                    </tr>
-                    <tr>
-                        <td>Class Participation</td>
-                        <td class="numeric">90/100</td>
-                        <td class="numeric">10%</td>
-                    </tr>
+                    @foreach ($Pelajaran as $pelajaran)
+                        {{-- Karena $Pelajaran sudah difilter untuk satu siswa,
+                            $pelajaran->scores seharusnya hanya memiliki satu entri untuk siswa tersebut --}}
+                        @php
+                            // Ambil nilai tugas, ujian, partisipasi, dan total untuk siswa saat ini
+                            // Pastikan $pelajaran->scores tidak kosong sebelum mengaksesnya
+                            $score = $pelajaran->scores->first(); // Ambil satu-satunya score untuk siswa ini
+                        @endphp
 
-                    <!-- Science -->
-                    <tr>
-                        <td rowspan="4">Science</td>
-                        <td>Midterm Exam</td>
-                        <td class="numeric">82/100</td>
-                        <td class="numeric">25%</td>
-                        <td rowspan="4" class="numeric pass">B+ (86.8)</td>
-                    </tr>
-                    <tr>
-                        <td>Final Exam</td>
-                        <td class="numeric">88/100</td>
-                        <td class="numeric">35%</td>
-                    </tr>
-                    <tr>
-                        <td>Lab Reports</td>
-                        <td class="numeric">91/100</td>
-                        <td class="numeric">30%</td>
-                    </tr>
-                    <tr>
-                        <td>Class Participation</td>
-                        <td class="numeric">85/100</td>
-                        <td class="numeric">10%</td>
-                    </tr>
+                        @if($score) {{-- Pastikan score ditemukan untuk mata pelajaran ini --}}
+                            <tr>
+                                <td rowspan="3">{{ $pelajaran['nama_mata_pelajaran'] }}</td>
+                                <td>Nilai Tugas</td>
+                                <td class="numeric">{{ $score->nilai_tugas }} / 100</td>
 
-                    <!-- English -->
-                    <tr>
-                        <td rowspan="4">English Literature</td>
-                        <td>Essay 1</td>
-                        <td class="numeric">78/100</td>
-                        <td class="numeric">20%</td>
-                        <td rowspan="4" class="numeric pass">B (83.9)</td>
-                    </tr>
-                    <tr>
-                        <td>Essay 2</td>
-                        <td class="numeric">85/100</td>
-                        <td class="numeric">20%</td>
-                    </tr>
-                    <tr>
-                        <td>Final Paper</td>
-                        <td class="numeric">87/100</td>
-                        <td class="numeric">40%</td>
-                    </tr>
-                    <tr>
-                        <td>Class Discussions</td>
-                        <td class="numeric">82/100</td>
-                        <td class="numeric">20%</td>
-                    </tr>
-
-                    <!-- History -->
-                    <tr>
-                        <td rowspan="4">History</td>
-                        <td>Research Project</td>
-                        <td class="numeric">91/100</td>
-                        <td class="numeric">30%</td>
-                        <td rowspan="4" class="numeric pass">A- (90.1)</td>
-                    </tr>
-                    <tr>
-                        <td>Midterm Exam</td>
-                        <td class="numeric">87/100</td>
-                        <td class="numeric">25%</td>
-                    </tr>
-                    <tr>
-                        <td>Final Exam</td>
-                        <td class="numeric">92/100</td>
-                        <td class="numeric">35%</td>
-                    </tr>
-                    <tr>
-                        <td>Attendance</td>
-                        <td class="numeric">90/100</td>
-                        <td class="numeric">10%</td>
-                    </tr>
-
-                    <!-- Computer Science -->
-                    <tr>
-                        <td rowspan="4">Computer Science</td>
-                        <td>Programming Assignments</td>
-                        <td class="numeric">95/100</td>
-                        <td class="numeric">40%</td>
-                        <td rowspan="4" class="numeric pass">A (94.5)</td>
-                    </tr>
-                    <tr>
-                        <td>Midterm Exam</td>
-                        <td class="numeric">92/100</td>
-                        <td class="numeric">20%</td>
-                    </tr>
-                    <tr>
-                        <td>Final Project</td>
-                        <td class="numeric">96/100</td>
-                        <td class="numeric">30%</td>
-                    </tr>
-                    <tr>
-                        <td>Quizzes</td>
-                        <td class="numeric">94/100</td>
-                        <td class="numeric">10%</td>
-                    </tr>
-
-                    <!-- Physical Education -->
-                    <tr>
-                        <td rowspan="3">Physical Education</td>
-                        <td>Fitness Test</td>
-                        <td class="numeric">88/100</td>
-                        <td class="numeric">30%</td>
-                        <td rowspan="3" class="numeric pass">B+ (87.5)</td>
-                    </tr>
-                    <tr>
-                        <td>Team Sports Participation</td>
-                        <td class="numeric">90/100</td>
-                        <td class="numeric">40%</td>
-                    </tr>
-                    <tr>
-                        <td>Written Exam</td>
-                        <td class="numeric">84/100</td>
-                        <td class="numeric">30%</td>
-                    </tr>
+                                <td style="font-size: large" rowspan="3" class="numeric pass">
+                                    
+                                    <?php 
+                                    if ($score->nilai_total >= 95) {
+                                        echo "A+";
+                                    } elseif ($score->nilai_total >= 90 && $score->nilai_total <= 95) {
+                                        echo "A";
+                                    } elseif ($score->nilai_total >= 85 && $score->nilai_total <= 90) {
+                                        echo "A-";
+                                    } elseif ($score->nilai_total >= 80 && $score->nilai_total <= 85) {
+                                        echo "B+";
+                                    } elseif ($score->nilai_total >= 75 && $score->nilai_total <= 80) {
+                                        echo "B";
+                                    } elseif ($score->nilai_total >= 70 && $score->nilai_total <= 75) {
+                                        echo "B-";
+                                    } elseif ($score->nilai_total >= 65 && $score->nilai_total <= 70) {
+                                        echo "C+";
+                                    } elseif ($score->nilai_total >= 60 && $score->nilai_total <= 65) {
+                                        echo "C";
+                                    } elseif ($score->nilai_total >= 55 && $score->nilai_total <= 60) {
+                                        echo "C-";
+                                    } elseif ($score->nilai_total >= 50 && $score->nilai_total <= 55) {
+                                        echo "D";
+                                    } 
+                                    elseif ($score->nilai_total <= 50) { // Jika nilaiTotal < 50
+                                        echo "E";
+                                    }
+                                    ?>
+                                    
+                                    ({{ $score->nilai_total }} / 100)</td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Nilai Ujian</td>
+                                <td class="numeric">{{ $score->nilai_ujian }} / 100</td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Nilai Partisipasi</td>
+                                <td class="numeric">{{ $score->nilai_partisipasi }} / 100</td>
+                                
+                            </tr>
+                            {{-- <tr>
+                                <td style="font-weight: bold">Nilai Total</td>
+                                <td style="font-weight: bold" class="numeric">{{ $score->nilai_total }} / 100</td>
+                                
+                            </tr> --}}
+                        @else
+                            <tr>
+                                <td rowspan="4">{{ $pelajaran['nama_mata_pelajaran'] }}</td>
+                                <td colspan="3">Tidak ada nilai untuk siswa ini di mata pelajaran ini.</td>
+                            </tr>
+                        @endif
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -185,8 +108,12 @@
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h4 class="text-gray-600 mb-2">Overall GPA</h4>
                     <div class="flex items-center">
-                        <span class="text-3xl font-bold text-gray-800">3.87</span>
-                        <span class="ml-2 text-gray-600">/4.0</span>
+                        <span class="text-3xl font-bold text-gray-800">{{ 
+
+                            $score->avg('nilai_total') 
+                            
+                            }}</span>
+                        <span class="ml-2 text-gray-600"> / 100</span>
                     </div>
                     <p class="text-sm text-gray-500 mt-2">Top 15% of class</p>
                 </div>
@@ -194,10 +121,35 @@
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h4 class="text-gray-600 mb-2">Subjects Performance</h4>
                     <div class="flex items-center">
-                        <span class="text-3xl font-bold text-green-600">6</span>
+                        <span class="text-3xl font-bold text-green-600">
+                            <?php 
+                            $countSubjectsAbove55 = 0;
+                            foreach ($Pelajaran as $pelajaran) {
+                                // Ambil nilai total untuk siswa saat ini dari mata pelajaran ini
+                                // Asumsi: $pelajaran->scores hanya berisi satu entri untuk siswa ini karena filter di atas
+                                $scoreForCurrentStudent = $pelajaran->scores->first();
+
+                                if ($scoreForCurrentStudent && $scoreForCurrentStudent->nilai_total >= 55) {
+                                    $countSubjectsAbove55++;
+                                }
+                            }
+
+                            $countSubjectsBelow55 = 0;
+                            foreach ($Pelajaran as $pelajaran) {
+                                // Ambil nilai total untuk siswa saat ini dari mata pelajaran ini
+                                // Asumsi: $pelajaran->scores hanya berisi satu entri untuk siswa ini karena filter di atas
+                                $scoreForCurrentStudent = $pelajaran->scores->first();
+
+                                if ($scoreForCurrentStudent && $scoreForCurrentStudent->nilai_total <= 55) {
+                                    $countSubjectsBelow55++;
+                                }
+                            }
+                            ?>
+                            {{ $countSubjectsAbove55 }}
+                            </span>
                         <span class="ml-2 text-gray-600">Passed</span>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2">0 Failed, 0 Incomplete</p>
+                    <p class="text-sm text-gray-500 mt-2">{{ $countSubjectsBelow55 }} Failed, 0 Incomplete</p>
                 </div>
                 
                 <div class="bg-gray-50 p-4 rounded-lg">

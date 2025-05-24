@@ -14,7 +14,6 @@ return new class extends Migration
         // TABEL SCORES
         Schema::create('scores', function (Blueprint $table) {
             $table->id(); // primary key
-            $table->integer('id_nilai')->nullable(); // opsional, tidak wajib kalau pakai id
 
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('subject_id');

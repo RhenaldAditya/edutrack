@@ -201,7 +201,7 @@
         </div>
 
         <div class="content-card">
-            <h2 class="section-title">Subject Comparison All Factors</h2>
+            <h2 class="section-title">Perbandingan Keseluruhan Nilai</h2>
             <table class="comparison-table">
                 <thead>
                     <tr>

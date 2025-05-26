@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\PerformanceController;
 
 Route::get('/', function () {
     return view('dashboard', ['title' => 'EduTrack Dashboard | Academic Reporting System']);
@@ -18,9 +19,11 @@ Route::get('/report', function () {
     return view('report', ['title' => 'EduTrack Report Viewer | Academic Reporting System']);
 });
 
-Route::get('/performance', function () {
-    return view('performance', ['title' => 'EduTrack Performance | Academic Reporting System']);
-});
+// Route::get('/performance', function () {
+//     return view('performance', ['title' => 'EduTrack Performance | Academic Reporting System']);
+// });
+
+Route::get('/performance', [PerformanceController::class, 'index']);
 
 
 Route::get('/grades', [GradeController::class, 'showGrades']);

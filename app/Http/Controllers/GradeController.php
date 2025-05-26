@@ -16,7 +16,8 @@ class GradeController extends Controller
     public function showGrades()
     {
 
-        $student_id = 1;
+        $student_id = 3;
+        $usernameStudent = "rizky.putra";
         $student = Score::find($student_id);
         
         // $Pelajaran = Subject::with('scores')->get();
@@ -32,25 +33,34 @@ class GradeController extends Controller
 
         $StudentName = Student::find($student_id);
 
-        // --- LOGIKA PENGHITUNGAN MATA PELAJARAN DI ATAS RATA-RATA 80 ---
-        $countSubjectsAbove55 = 0;
-        foreach ($Pelajaran as $pelajaran) {
-            // Ambil nilai total untuk siswa saat ini dari mata pelajaran ini
-            // Asumsi: $pelajaran->scores hanya berisi satu entri untuk siswa ini karena filter di atas
-            $scoreForCurrentStudent = $pelajaran->scores->first();
+        $fullName = $StudentName->nama_siswa;
+        
+        $words = explode(' ', $fullName); 
 
-            if ($scoreForCurrentStudent && $scoreForCurrentStudent->nilai_total >= 55) {
-                $countSubjectsAbove55++;
-            }
-        }
-        // --- AKHIR LOGIKA PENGHITUNGAN ---
-        // dd($StudentName->alamat_siswa);
+        $initialsArray = array_map(function ($word) {
+            // str_split($word) akan mengubah kata menjadi array karakter
+            // [0] akan mengambil karakter pertama
+            // strtoupper() untuk memastikan inisial dalam huruf kapital
+            return strtoupper(str_split($word)[0]); 
+        }, $words);
+        // 3. Gabungkan inisial-inisial tersebut dengan '/' sebagai pemisah
+        $initialsString = implode('', $initialsArray);
+
+
+        $averageTotalScore = Score::where('student_id', $student_id)->avg('nilai_total');
+
+        $countPassSubject = Score::where('student_id', $student_id)->where('nilai_total', '>=', 55)->count();
+        $countFailedSubject = Score::where('student_id', $student_id)->where('nilai_total', '<=', 55)->count();
+
         return view('grades', [
             'title' => 'EduTrack My Grades | Academic Reporting System',
             'student' => $student,
-            'student_name' => $StudentName,
+            'studentName' => $StudentName->nama_siswa,
             'Pelajaran' => $Pelajaran,
-            'countSubjectsAbove55' => $countSubjectsAbove55
+            'avgTotalScore' => round($averageTotalScore,2),
+            'countPassSubject' => $countPassSubject,
+            'countFailedSubject' => $countFailedSubject,
+            'initialsString' => $initialsString
         ]);
         
     }

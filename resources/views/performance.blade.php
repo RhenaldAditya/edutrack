@@ -18,7 +18,7 @@
                 <div class="chart-axis" style="bottom: 25%;">
                     <span class="axis-label">25%</span>
                 </div>
-                
+
                 <div class="bar-container">
                     <div class="bar" style="height: 80%;">
                         <span class="bar-value">80%</span>
@@ -71,60 +71,173 @@
         </div>
         
         <!-- Comparison Table Section -->
+        {{-- Perbandingan Data Nilai Ujian --}}
         <div class="content-card">
-            <h2 class="section-title">Subject Comparison</h2>
+            <h2 class="section-title">Perbandingan Nilai Ujian</h2>
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Subject</th>
-                        <th>Your Score</th>
-                        <th>Class Average</th>
-                        <th>Status</th>
+                        <th style="text-align:center">Mata Pelajaran</th>
+                        <th style="text-align:center">Nilai Ujian</th>
+                        <th style="text-align:center">Rata-Rata Kelas</th>
+                        <th style="text-align:center">Status</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if (empty($comparisonData))
+                        <tr>
+                            <td colspan="4" style="text-align: center">Tidak ada data nilai yang ditemukan untuk siswa ini.</td>
+                        </tr>
+                    @else
+                    @foreach ($comparisonData as $item)
+                    @php
+                        $studentTaskScore = number_format($item['nilai_tugas_siswa'], 2);
+                        $overallTaskAvg = number_format($item['rata_rata_tugas_overall'], 2);
+                    @endphp
+                            <tr>
+                                <td style="width:33%">{{ $item['nama_mata_pelajaran'] }}</td>
+                                <td style="text-align:center">{{ $studentTaskScore }}</td>
+                                <td style="text-align:center">{{ $overallTaskAvg  }}</td>
+                                <td style="text-align:center">
+                                    @if ($studentTaskScore > $overallTaskAvg)
+                                        <span class="status-tag status-above">Above Average</span>
+                                    @elseif ($studentTaskScore < $overallTaskAvg)
+                                        <span class="status-tag status-below">Below Average</span>
+                                    @else
+                                        <span class="status-tag status-average">Average</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Perbandingan Data Nilai Tugas --}}
+        <div class="content-card">
+            <h2 class="section-title">Perbandingan Nilai Tugas</h2>
+            <table class="comparison-table">
+                <thead>
                     <tr>
-                        <td>Mathematics</td>
-                        <td>80%</td>
-                        <td>72%</td>
-                        <td><span class="status-tag status-above">Above Average</span></td>
+                        <th style="text-align:center">Mata Pelajaran</th>
+                        <th style="text-align:center">Nilai Tugas</th>
+                        <th style="text-align:center">Rata-Rata Kelas</th>
+                        <th style="text-align:center">Status</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @if (empty($comparisonData))
+                        <tr>
+                            <td colspan="4">Tidak ada data nilai yang ditemukan untuk siswa ini.</td>
+                        </tr>
+                    @else
+                    @foreach ($comparisonData as $item)
+                    @php
+                        $studentExamScore = number_format($item['nilai_ujian_siswa'], 2);
+                        $overallExamAvg = number_format($item['rata_rata_ujian_overall'], 2);
+                    @endphp
+                            <tr>
+                                <td style="width:33%">{{ $item['nama_mata_pelajaran'] }}</td>
+                                <td style="text-align:center">{{ $studentExamScore  }}</td>
+                                <td style="text-align:center">{{ $overallExamAvg   }}</td>
+                                <td style="text-align:center">
+                                    @if ($studentExamScore > $overallExamAvg)
+                                        <span class="status-tag status-above">Above Average</span>
+                                    @elseif ($studentExamScore < $overallExamAvg)
+                                        <span class="status-tag status-below">Below Average</span>
+                                    @else
+                                        <span class="status-tag status-average">Average</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Perbandingan Data Nilai Tugas --}}
+        <div class="content-card">
+            <h2 class="section-title">Perbandingan Nilai Partisipasi</h2>
+            <table class="comparison-table">
+                <thead>
                     <tr>
-                        <td>English</td>
-                        <td>92%</td>
-                        <td>76%</td>
-                        <td><span class="status-tag status-above">Above Average</span></td>
+                        <th style="text-align:center">Mata Pelajaran</th>
+                        <th style="text-align:center">Nilai Partisipasi</th>
+                        <th style="text-align:center">Rata-Rata Kelas</th>
+                        <th style="text-align:center">Status</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @if (empty($comparisonData))
+                        <tr>
+                            <td colspan="4">Tidak ada data nilai yang ditemukan untuk siswa ini.</td>
+                        </tr>
+                    @else
+                    @foreach ($comparisonData as $item)
+                    @php
+                        $studentParticipationScore  = number_format($item['nilai_partisipasi_siswa'], 2);
+                        $overallParticipationAvg  = number_format($item['rata_rata_partisipasi_overall'], 2);
+                    @endphp
+                            <tr>
+                                <td style="width:33%">{{ $item['nama_mata_pelajaran'] }}</td>
+                                <td style="text-align:center">{{ $studentParticipationScore  }}</td>
+                                <td style="text-align:center">{{ $overallParticipationAvg   }}</td>
+                                <td style="text-align:center">
+                                    @if ($studentParticipationScore > $overallParticipationAvg)
+                                        <span class="status-tag status-above">Above Average</span>
+                                    @elseif ($studentParticipationScore < $overallParticipationAvg)
+                                        <span class="status-tag status-below">Below Average</span>
+                                    @else
+                                        <span class="status-tag status-average">Average</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-card">
+            <h2 class="section-title">Subject Comparison All Factors</h2>
+            <table class="comparison-table">
+                <thead>
                     <tr>
-                        <td>Science</td>
-                        <td>75%</td>
-                        <td>77%</td>
-                        <td><span class="status-tag status-below">Below Average</span></td>
+                        <th style="text-align:center">Mata Pelajaran</th>
+                        <th style="text-align:center">Rata-Rata<br>Nilai Keseluruhan</th>
+                        <th style="text-align:center">Rata-Rata Kelas</th>
+                        <th style="text-align:center">Status</th>
                     </tr>
-                    <tr>
-                        <td>History</td>
-                        <td>88%</td>
-                        <td>70%</td>
-                        <td><span class="status-tag status-above">Above Average</span></td>
-                    </tr>
-                    <tr>
-                        <td>Art</td>
-                        <td>65%</td>
-                        <td>80%</td>
-                        <td><span class="status-tag status-below">Below Average</span></td>
-                    </tr>
-                    <tr>
-                        <td>Geography</td>
-                        <td>78%</td>
-                        <td>74%</td>
-                        <td><span class="status-tag status-above">Above Average</span></td>
-                    </tr>
-                    <tr>
-                        <td>Physics</td>
-                        <td>85%</td>
-                        <td>75%</td>
-                        <td><span class="status-tag status-above">Above Average</span></td>
-                    </tr>
+                </thead>
+                <tbody>
+                    @if (empty($comparisonData))
+                        <tr>
+                            <td colspan="4">Tidak ada data nilai yang ditemukan untuk siswa ini.</td>
+                        </tr>
+                    @else
+                    @foreach ($comparisonData as $item)
+                        @php
+                            $studentCombinedAvg = number_format($item['rata_rata_gabungan_siswa'], 2);
+                            $overallCombinedAvg = number_format($item['rata_rata_gabungan_overall'], 2);
+                        @endphp
+                            <tr>
+                                <td style="width:33%">{{ $item['nama_mata_pelajaran'] }}</td>
+                                <td style="text-align:center">{{ $studentCombinedAvg }}</td>
+                                <td style="text-align:center">{{ $overallCombinedAvg }}</td>
+                                <td style="text-align:center">
+                                    @if ($studentCombinedAvg > $overallCombinedAvg)
+                                        <span class="status-tag status-above">Above Average</span>
+                                    @elseif ($studentCombinedAvg < $overallCombinedAvg)
+                                        <span class="status-tag status-below">Below Average</span>
+                                    @else
+                                        <span class="status-tag status-average">Average</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

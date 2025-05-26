@@ -7,9 +7,9 @@
                     <p class="text-gray-600">Tahun Akademik 2024/2025 - Semester Genap</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <span class="text-m text-gray-900">{{ $student_name->nama_siswa }}</span>
-                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span class="text-sm text-gray-700">AJ</span>
+                    <span class="text-m text-gray-900">{{ $studentName }}</span>
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-sm text-gray-700">{{ $initialsString }}</span>
                     </div>
                 </div>
             </div>
@@ -17,13 +17,13 @@
 
         <!-- Grades Table -->
         <div class="bg-white rounded-lg shadow-sm p-4 mb-6 overflow-hidden">
-            <table border="1" cellpadding="10" cellspacing="0">
+            <table border="1" cellpadding="0" cellspacing="0">
                 <thead>
                     <tr>
-                        <th style="width: 30%">Mata Pelajaran</th>
-                        <th>Jenis Nilai</th>
-                        <th>Nilai</th>
-                        <th>Nilai Total</th> {{-- Opsional: Tambahkan kolom keterangan --}}
+                        <th style="width:30%; text-align:center">Mata Pelajaran</th>
+                        <th style="width:25%; text-align:center">Jenis Nilai</th>
+                        <th style="width:20%; text-align:center">Nilai</th>
+                        <th style="width:25%; text-align:center" >Nilai Total</th> {{-- Opsional: Tambahkan kolom keterangan --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -34,11 +34,12 @@
                             // Ambil nilai tugas, ujian, partisipasi, dan total untuk siswa saat ini
                             // Pastikan $pelajaran->scores tidak kosong sebelum mengaksesnya
                             $score = $pelajaran->scores->first(); // Ambil satu-satunya score untuk siswa ini
+                            // dd(gettype($pelajaran));
                         @endphp
 
                         @if($score) {{-- Pastikan score ditemukan untuk mata pelajaran ini --}}
                             <tr>
-                                <td rowspan="3">{{ $pelajaran['nama_mata_pelajaran'] }}</td>
+                                <td rowspan="3" class="font-bold" style="font-size: large; text-align:center">{{ $pelajaran->nama_mata_pelajaran }}</td>
                                 <td>Nilai Tugas</td>
                                 <td class="numeric">{{ $score->nilai_tugas }} / 100</td>
 
@@ -108,11 +109,9 @@
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h4 class="text-gray-600 mb-2">Overall GPA</h4>
                     <div class="flex items-center">
-                        <span class="text-3xl font-bold text-gray-800">{{ 
-
-                            $score->avg('nilai_total') 
-                            
-                            }}</span>
+                        <span class="text-3xl font-bold text-gray-800">
+                        {{ $avgTotalScore }}
+                        </span>
                         <span class="ml-2 text-gray-600"> / 100</span>
                     </div>
                     <p class="text-sm text-gray-500 mt-2">Top 15% of class</p>
@@ -122,34 +121,11 @@
                     <h4 class="text-gray-600 mb-2">Subjects Performance</h4>
                     <div class="flex items-center">
                         <span class="text-3xl font-bold text-green-600">
-                            <?php 
-                            $countSubjectsAbove55 = 0;
-                            foreach ($Pelajaran as $pelajaran) {
-                                // Ambil nilai total untuk siswa saat ini dari mata pelajaran ini
-                                // Asumsi: $pelajaran->scores hanya berisi satu entri untuk siswa ini karena filter di atas
-                                $scoreForCurrentStudent = $pelajaran->scores->first();
-
-                                if ($scoreForCurrentStudent && $scoreForCurrentStudent->nilai_total >= 55) {
-                                    $countSubjectsAbove55++;
-                                }
-                            }
-
-                            $countSubjectsBelow55 = 0;
-                            foreach ($Pelajaran as $pelajaran) {
-                                // Ambil nilai total untuk siswa saat ini dari mata pelajaran ini
-                                // Asumsi: $pelajaran->scores hanya berisi satu entri untuk siswa ini karena filter di atas
-                                $scoreForCurrentStudent = $pelajaran->scores->first();
-
-                                if ($scoreForCurrentStudent && $scoreForCurrentStudent->nilai_total <= 55) {
-                                    $countSubjectsBelow55++;
-                                }
-                            }
-                            ?>
-                            {{ $countSubjectsAbove55 }}
+                            {{ $countPassSubject }}
                             </span>
                         <span class="ml-2 text-gray-600">Passed</span>
                     </div>
-                    <p class="text-sm text-gray-500 mt-2">{{ $countSubjectsBelow55 }} Failed, 0 Incomplete</p>
+                    <p class="text-sm text-gray-500 mt-2">{{ $countFailedSubject }} Failed, 0 Incomplete</p>
                 </div>
                 
                 <div class="bg-gray-50 p-4 rounded-lg">
@@ -162,7 +138,7 @@
             <div class="mt-6 border-t pt-4">
                 <h4 class="font-semibold mb-2">Academic Advisor Remarks:</h4>
                 <p class="text-gray-700">
-                    Alex demonstrates excellent academic progress this semester, with particular strengths in Mathematics and Computer Science. 
+                    {{ $studentName }} demonstrates excellent academic progress this semester, with particular strengths in Mathematics and Computer Science. 
                     Consider enrolling in Advanced Computer Science next semester to further develop these skills. 
                     Continue to maintain the current study habits and engagement levels.
                 </p>

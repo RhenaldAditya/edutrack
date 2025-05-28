@@ -1,0 +1,104 @@
+:root {
+      --primary: #4f8cff;
+      --primary-dark: #3562b7;
+      --gray: #e0e4ea;
+      --danger: #eb5757;
+      --bg: #f6f7fb;
+      --card: #fff;
+    }
+    body {
+      background: var(--bg);
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-container {
+      background: var(--card);
+      padding: 2.5rem 2.3rem 2rem 2.3rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px #4f8cff18;
+      width: 100%;
+      max-width: 370px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .login-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .login-subtitle {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 2.1rem;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 1.35rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+      font-size: 1rem;
+    }
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid var(--gray);
+      border-radius: 7px;
+      font-size: 1rem;
+      background: #f8fafc;
+      transition: border 0.2s;
+    }
+    input[type="email"]:focus, input[type="password"]:focus {
+      border-color: var(--primary);
+      outline: none;
+      background: #fff;
+    }
+    .login-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 12px 0;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.2rem;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 8px #4f8cff18;
+    }
+    .login-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .login-footer {
+      text-align: center;
+      margin-top: 1.7rem;
+      font-size: 0.98rem;
+    }
+    .login-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.18s;
+    }
+    .login-footer a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    @media (max-width: 500px) {
+      .login-container {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        border-radius: 10px;
+      }
+    }

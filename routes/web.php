@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmDashboardController;
 use App\Models\Score;
 use App\Models\Student;
 use App\Models\Subject;
@@ -48,5 +49,35 @@ Route::get('/grades', [GradeController::class, 'showGrades']);
 
 Route::get('/login', function () {
     return view('login');
+});
+
+Route::get('/adminlogin', function () {
+    return view('adminlogin');
+});
+
+Route::get('/admindashboard', [AdmDashboardController::class, 'index']);
+
+Route::get('/admindashboard/admsubjects', function () {
+    return view('admsubjects');
+});
+
+Route::get('/admindashboard/admgrading', function () {
+    return view('admgrading');
+});
+
+Route::get('/admindashboard/admreports', function () {
+    return view('admreports');
+});
+
+Route::get('/admindashboard/admperformance', function () {
+    return view('admperformance');
+});
+
+Route::get('/admindashboard/admstudents', function () {
+    return view('admstudents');
+});
+
+Route::get('/admindashboard/admfeedback', function () {
+    return view('admfeedback');
 });
 

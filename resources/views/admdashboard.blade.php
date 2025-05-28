@@ -11,7 +11,7 @@
             </header>
             <!-- Dashboard Section -->
             <section id="dashboard">
-                <h2>Dashboard</h2>
+                <h2>Dashboard Guru Pelajaran</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>Total Students</h3>

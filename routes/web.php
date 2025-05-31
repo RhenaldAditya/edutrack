@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdmDashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Score;
 use App\Models\Student;
 use App\Models\Subject;
@@ -12,9 +13,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\PerformanceController;
 
-Route::get('/', function () {
-    return view('dashboard', ['title' => 'EduTrack Dashboard | Academic Reporting System']);
-});
+Route::get('/', [DashboardController::class, 'index']);
 
 Route::get('/report', function () {
     return view('report', ['title' => 'EduTrack Report Viewer | Academic Reporting System']);
@@ -57,27 +56,14 @@ Route::get('/adminlogin', function () {
 
 Route::get('/admindashboard', [AdmDashboardController::class, 'index']);
 
-Route::get('/admindashboard/admsubjects', function () {
-    return view('admsubjects');
-});
+Route::get('/admindashboard/admsubjects', [AdmDashboardController::class, 'admsubjects']);
 
-Route::get('/admindashboard/admgrading', function () {
-    return view('admgrading');
-});
+Route::get('/admindashboard/admgrading', [AdmDashboardController::class, 'admgrading']);
 
-Route::get('/admindashboard/admreports', function () {
-    return view('admreports');
-});
+Route::get('/admindashboard/admreports', [AdmDashboardController::class, 'admreports']);
 
-Route::get('/admindashboard/admperformance', function () {
-    return view('admperformance');
-});
+Route::get('/admindashboard/admperformance', [AdmDashboardController::class, 'admperformance']);
 
-Route::get('/admindashboard/admstudents', function () {
-    return view('admstudents');
-});
+Route::get('/admindashboard/admstudents', [AdmDashboardController::class, 'admstudents']);
 
-Route::get('/admindashboard/admfeedback', function () {
-    return view('admfeedback');
-});
-
+Route::get('/admindashboard/admfeedback', [AdmDashboardController::class, 'admfeedback']);

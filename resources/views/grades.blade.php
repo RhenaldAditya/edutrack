@@ -34,7 +34,6 @@
                             // Ambil nilai tugas, ujian, partisipasi, dan total untuk siswa saat ini
                             // Pastikan $pelajaran->scores tidak kosong sebelum mengaksesnya
                             $score = $pelajaran->scores->first(); // Ambil satu-satunya score untuk siswa ini
-                            // dd(gettype($pelajaran));
                         @endphp
 
                         @if($score) {{-- Pastikan score ditemukan untuk mata pelajaran ini --}}

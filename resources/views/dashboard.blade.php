@@ -4,13 +4,13 @@
         <div class=" mx-auto">
             <div class="flex justify-between items-center py-4">
                 <div>
-                    <h2 class="text-2xl font-semibold text-gray-800">Selamat Datang, Alex!</h2>
-                    <p class="text-gray-600">Here's your academic progress so far for this semester</p>
+                    <h2 class="text-2xl font-semibold text-gray-800">Selamat Datang, {{ $studentName->nama_siswa }}</h2>
+                    <p class="text-gray-600">Berikut adalah kemajuan akademis Anda sejauh ini untuk semester ini</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <span class="text-sm text-gray-600">Alex Johnson</span>
-                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span class="text-sm text-gray-700">AJ</span>
+                    <span class="text-sm text-gray-600">{{ $studentName->nama_siswa }}</span>
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-sm text-gray-700">{{ $inisialSiswa }}</span>
                     </div>
                 </div>
             </div>
@@ -23,10 +23,10 @@
             <div class="card bg-white p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm">Total Subjects</p>
-                        <h3 class="text-3xl font-bold text-gray-800">8</h3>
+                        <p class="text-gray-500 text-sm">Total Pelajaran</p>
+                        <h3 class="text-3xl font-bold text-gray-800">{{ count($Pelajaran) }}</h3>
                         <p class="text-green-600 text-sm mt-1">
-                            <i class="fas fa-arrow-up"></i> 2 more than last semester
+                            <i class="fas fa-arrow-up"></i> 2 pelajaran lebih banyak dari semester kemarin
                         </p>
                     </div>
                     <div class="h-14 w-14 rounded-full bg-green-100 flex items-center justify-center">
@@ -39,10 +39,10 @@
                 <div class="card bg-white p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm">Average Score</p>
-                            <h3 class="text-3xl font-bold text-gray-800">86.5%</h3>
+                            <p class="text-gray-500 text-sm">Rata-rata Score</p>
+                            <h3 class="text-3xl font-bold text-gray-800">{{ number_format($avgScore,1) }}%</h3>
                             <p class="text-green-600 text-sm mt-1">
-                                <i class="fas fa-arrow-up"></i> +4.2% improvement
+                                <i class="fas fa-arrow-up"></i> +4.2% Peningkatan
                             </p>
                         </div>
                         <div class="h-14 w-14 rounded-full bg-blue-100 flex items-center justify-center">
@@ -55,10 +55,10 @@
                 <div class="card bg-white p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500 text-sm">Class Rank</p>
+                            <p class="text-gray-500 text-sm">Rank Kelas</p>
                             <h3 class="text-3xl font-bold text-gray-800">5<span class="text-lg font-medium text-gray-600">/30</span></h3>
                             <p class="text-green-600 text-sm mt-1">
-                                <i class="fas fa-arrow-up"></i> Up 3 positions
+                                <i class="fas fa-arrow-up"></i> Naik 3 posisi
                             </p>
                         </div>
                         <div class="h-14 w-14 rounded-full bg-purple-100 flex items-center justify-center">
@@ -69,18 +69,18 @@
             </div>
 
             <!-- Performance Overview -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                 <!-- Semester Report -->
-                <div class="card bg-white p-6 md:col-span-1">
+                <div class="card bg-white p-6 md:col-span-3">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Semester Report 2024/2025</h3>
                     
                     <div class="space-y-4">
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Attendance Rate:</span>
-                            <span class="font-semibold">97%</span>
+                            <span class="text-gray-600">Tingkat Partisipasi:</span>
+                            <span class="font-semibold">{{ number_format($avgParticipation,0) }}%</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-green-600 h-2.5 rounded-full" style="width: 97%"></div>
+                            <div class="bg-green-600 h-2.5 rounded-full" style="width: {{ number_format($avgParticipation,2) }}%"></div>
                         </div>
                         
                         <div class="flex justify-between">
@@ -92,68 +92,76 @@
                         </div>
                         
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Current GPA:</span>
-                            <span class="font-semibold">3.8/4.0</span>
+                            <span class="text-gray-600">Rata-rata Keseluruhan Nilai:</span>
+                            <span class="font-semibold">{{ number_format($avgScore,2) }}/100</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-green-600 h-2.5 rounded-full" style="width: 95%"></div>
+                            <div class="bg-green-600 h-2.5 rounded-full" style="width: {{ number_format($avgScore,2) }}%"></div>
                         </div>
                     </div>
                     
                     <div class="mt-6 pt-4 border-t border-gray-200">
-                        <h4 class="font-semibold text-gray-700">Teacher's Comment:</h4>
+                        <h4 class="font-semibold text-gray-700">Komentar Guru:</h4>
                         <p class="text-gray-600 text-sm mt-2 italic">
-                            "Alex demonstrates excellent academic progress and consistent performance. 
-                            Continue focusing on group participation in class discussions."
+                            "{{ $studentName->nama_siswa }} menunjukkan kemajuan akademik yang sangat baik dan kinerja yang konsisten. 
+                            Terus berfokus pada partisipasi kelompok dalam diskusi kelas."
                         </p>
                     </div>
                 </div>
+            </div>
 
                 <!-- Recent Performance Chart -->
                 <div class="card bg-white p-6 md:col-span-2">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800">Recent Performance</h3>
-                        <div class="text-sm text-gray-500">Last Updated: June 12, 2024</div>
+                        <h3 class="text-lg font-semibold text-gray-800">Performa Terakhir</h3>
+                        @php
+                            date_default_timezone_set('Asia/Jakarta');
+                        @endphp
+                        <div class="text-sm text-gray-500">Last Updated: {{ date("j F Y, H:i:s") }}</div>
                     </div>
                     
                     <!-- CSS-only Bar Chart (Static representation) -->
-                    <div class="bar-chart">
-                        <div class="bar" style="height: 75%;">
-                            <div class="bar-value">75%</div>
-                            <div class="bar-label">Math</div>
-                        </div>
-                        <div class="bar" style="height: 88%;">
-                            <div class="bar-value">88%</div>
-                            <div class="bar-label">Science</div>
-                        </div>
-                        <div class="bar" style="height: 92%;">
-                            <div class="bar-value">92%</div>
-                            <div class="bar-label">English</div>
-                        </div>
-                        <div class="bar" style="height: 80%;">
-                            <div class="bar-value">80%</div>
-                            <div class="bar-label">History</div>
-                        </div>
-                        <div class="bar" style="height: 95%;">
-                            <div class="bar-value">95%</div>
-                            <div class="bar-label">Art</div>
-                        </div>
-                        <div class="bar" style="height: 78%;">
-                            <div class="bar-value">78%</div>
-                            <div class="bar-label">PE</div>
-                        </div>
-                        <div class="bar" style="height: 85%;">
-                            <div class="bar-value">85%</div>
-                            <div class="bar-label">CS</div>
-                        </div>
-                        <div class="bar" style="height: 90%;">
-                            <div class="bar-value">90%</div>
-                            <div class="bar-label">Music</div>
-                        </div>
-                    </div>
+                    
+                    @php
+                        $ceking = 0; // Inisialisasi counter $ceking
+                    @endphp
+                    @foreach ($Pelajaran as $pelajaran)
+                    @if ($ceking % 5 == 0) {{-- Cek apakah $ceking adalah 0, 5, 10, dst. (awal dari grup baru) --}}
+                        @if ($ceking > 0) {{-- Jika ini bukan grup pertama, tutup div "bar-chart" sebelumnya --}}
+                            </div> {{-- Tutup <div class="bar-chart"> sebelumnya --}}
+                            <br> {{-- Tambahkan <br> setelah grup "bar-chart" sebelumnya --}}
+                        @endif
+                        <div class="bar-chart"> {{-- Buka <div class="bar-chart"> baru --}}
+                    @endif
+                    {{-- Bagian ini adalah konten untuk setiap bar individual, seperti pada kode asli Anda --}}
+                    @php
+                        // Karena $Pelajaran sudah difilter untuk satu siswa,
+                        // $pelajaran->scores seharusnya hanya memiliki satu entri untuk siswa tersebut
+                        
+                        // Ambil nilai tugas, ujian, partisipasi, dan total untuk siswa saat ini
+                        // Pastikan $pelajaran->scores tidak kosong sebelum mengaksesnya
+                        $score = $pelajaran->scores->first(); // Ambil satu-satunya score untuk siswa ini
+                    @endphp
+                    
+                    <div class="bar" style="height: {{ number_format($score->nilai_total,0)}}%;">
+                        <div class="bar-value">{{ number_format($score->nilai_total,0)}}%</div>
+                        <div class="bar-label">{{ $pelajaran->nama_mata_pelajaran }}</div>
+                    </div> <br> {{-- Ini adalah <br> di dalam "bar-chart", setelah setiap bar individual --}}
+                    {{-- Akhir dari konten bar individual --}}
+                            
+                    @php
+                        $ceking++; // Increment counter $ceking setelah setiap item diproses
+                    @endphp
+
+                    @if ($loop->last) {{-- Jika ini adalah item terakhir dalam loop --}}
+                        </div> {{-- Tutup <div class="bar-chart"> yang terakhir --}}
+                        <br> {{-- Tambahkan <br> setelah grup "bar-chart" yang terakhir --}}
+                    @endif
+                    @endforeach
+                    
                     
                     <div class="mt-6 text-center text-sm text-gray-600">
-                        Subject Performance (Current Semester)
+                        Performa Mata Pelajaran (Semester Saat Ini)
                     </div>
                 </div>
             </div>

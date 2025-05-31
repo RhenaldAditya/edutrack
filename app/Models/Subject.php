@@ -18,7 +18,7 @@ class Subject extends Model
     // Relasi ke Score (jika ingin melihat semua nilai untuk mata pelajaran ini)
     public function scores()
     {
-        return $this->hasMany(Score::class);
+        return $this->hasMany(Score::class, 'subject_id', 'id');
     }
 
     public function teachers(): HasMany // Perhatikan 'teachers' (plural) karena bisa banyak guru, atau satu mata pelajaran dapat diampu banyak guru

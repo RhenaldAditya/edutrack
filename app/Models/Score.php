@@ -20,7 +20,7 @@ class Score extends Model
     // Relasi ke Subject
     public function subject()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
 
     public function scores()
@@ -30,7 +30,7 @@ class Score extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
     // public function 

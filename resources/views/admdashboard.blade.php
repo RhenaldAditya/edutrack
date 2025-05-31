@@ -1,5 +1,5 @@
 <x-admlayout>
-    <header class="header">
+            <header class="header">
                 <h1>Academic Management System</h1>
                 <div class="user-info">
                     <div class="user-avatar">{{ $initialsStringNamaGuru }}</div>
@@ -15,12 +15,12 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>Total Students</h3>
-                        <div class="value">124</div>
+                        <div class="value">{{ $jmlMurid }}</div>
                         <p>Across all your classes</p>
                     </div>
                     <div class="stat-card success">
                         <h3>Average Score</h3>
-                        <div class="value">78.5%</div>
+                        <div class="value">{{ number_format($meanNilaiTotal, 2) }}%</div>
                         <p>Class average performance</p>
                     </div>
                     <div class="stat-card warning">
@@ -29,8 +29,8 @@
                         <p>Students need grading</p>
                     </div>
                     <div class="stat-card danger">
-                        <h3>Low Performers</h3>
-                        <div class="value">12</div>
+                        <h3>Murid Gagal Lolos Subject</h3>
+                        <div class="value">{{ $failPassSubject }}</div>
                         <p>Students need attention</p>
                     </div>
                 </div>

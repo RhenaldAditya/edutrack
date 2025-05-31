@@ -116,6 +116,8 @@ class PerformanceController extends Controller
 
 
         // Kirim data yang sudah difilter ke view
+
+       
         return view('performance', [
             'title' => 'EduTrack Performance | Academic Reporting System',
             'studentId' => $student_id,

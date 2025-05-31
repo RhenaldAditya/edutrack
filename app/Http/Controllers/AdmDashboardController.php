@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Score;
+use App\Models\Student;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -29,13 +32,58 @@ class AdmDashboardController extends Controller
         // 3. Gabungkan inisial-inisial tersebut dengan '/' sebagai pemisah
         $initialsStringNamaGuru = implode('', $initialsArrayNamaGuru);
 
+        //hitung jumlah keseluruhan murid
+        $jumlahMurid = Student::count();
+
+        //mean nilai total
+        $rataRataNilaiTotal = Score::avg('nilai_total');
+
+        //low or not pass subject 
+        $countFailedSubject = Score::where('nilai_total', '<=', 55)->count();
 
         return view('admdashboard', [
             'TeacherData' => $TeacherName,
-            'initialsStringNamaGuru' => $initialsStringNamaGuru
+            'initialsStringNamaGuru' => $initialsStringNamaGuru,
+            'jmlMurid' => $jumlahMurid,
+            'meanNilaiTotal' => $rataRataNilaiTotal,
+            'failPassSubject' => $countFailedSubject
         ]);
     }
 
+    public function admsubjects()
+    {
+        $SubjectDetail = Subject::all();
+        
+        return view('admsubjects', [
+            'subjectDetail' => $SubjectDetail
+        ]);
+    }
+
+    public function admgrading()
+    {
+        return view('admgrading');
+    }
+
+    public function admreports()
+    {
+        return view('admreports');
+    }
+
+    public function admperformance()
+    {
+        return view('admperformance');
+    }
+
+    public function admstudents()
+    {
+        return view('admstudents');
+    }
+
+    public function admfeedback()
+    {
+        return view('admfeedback');
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
